@@ -15,4 +15,8 @@ public interface UserRepository {
 	public void delete(User user);
 	
 	public Weather store(Weather weather);
+	public List<String> findAllCities();
+	public Optional<Weather> findOneCity(String city);
+	public Optional<String> findOneCityProperty(String city, String property);
+	public Optional<List<Weather>> findHourAverage(String city);
 }

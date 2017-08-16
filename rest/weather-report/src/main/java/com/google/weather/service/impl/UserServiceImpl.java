@@ -59,10 +59,35 @@ public class UserServiceImpl implements UserService{
 		repository.delete(found);		
 	}
 	
-	
+	@org.springframework.transaction.annotation.Transactional
 	@Override
 	public Weather store(Weather weather) {
 		return repository.store(weather);		
 	}
 	
+	@org.springframework.transaction.annotation.Transactional
+	@Override
+	public List<String> findAllCities(){
+		return repository.findAllCities();
+	}
+
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)	
+	@Override
+	public Weather findOneCity(String city) {
+		return repository.findOneCity(city).orElseThrow(() -> 
+		new NotFound("User with id "+ city + "does not found"));
+	}
+
+	@org.springframework.transaction.annotation.Transactional(readOnly=true)	
+	@Override
+	public String findOneCityProperty(String city, String property) {
+		return repository.findOneCityProperty(city, property).orElseThrow(() -> 
+		new NotFound("User with id "+ city + "does not found"));
+	}
+
+	@Override
+	public List<Weather> findHourAverage(String city) {
+		return repository.findHourAverage(city).orElseThrow(() -> 
+		new NotFound("User with id "+ city + "does not found"));
+	}
 }

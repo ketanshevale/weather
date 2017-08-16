@@ -15,4 +15,8 @@ public interface UserService {
 	public void delete(@PathVariable("id") String id);
 	
 	public Weather store(@RequestBody Weather weather);
+	public List<String> findAllCities();
+	public Weather findOneCity(@PathVariable("id") String city);
+	public String findOneCityProperty(@PathVariable("id") String city, @PathVariable("property") String property);
+	public List<Weather> findHourAverage(@PathVariable("id") String city);
 }

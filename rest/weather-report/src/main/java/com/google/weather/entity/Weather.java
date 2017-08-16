@@ -1,5 +1,7 @@
 package com.google.weather.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
@@ -9,20 +11,23 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name ="Weather.findAll", query="SELECT w from Weather w ORDER BY w.city"),
-	@NamedQuery(name ="Weather.findByTyme", query="SELECT w from Weather w where w.timestamp=:pEmail")
+	@NamedQuery(name ="Weather.findAllCities", query="SELECT DISTINCT w.city from Weather w"),
+	@NamedQuery(name ="Weather.findByTime", query="SELECT w from Weather w where w.city= :pCity order by w.timestamp DESC"),
+//	@NamedQuery(name ="Weather.findHourAverage", query="SELECT a.timestamp, AVG( humidity ) , AVG( pressure ), AVG( temperature ), "
+//	+ "AVG( speed ), AVG( degree )FROM weather a "
+//	+ "JOIN wind b ON a.timestamp = b.timestamp")
 })
 //Simple POJO class
 public class Weather {
 		@Id
+		private Timestamp timestamp;
 		private String city;
 		private String description;
-		private String humidity;
-		private String pressure;
-		private String temperature;
+		private Double humidity;
+		private Double pressure;
+		private Double temperature;
 		@OneToOne
 		private Wind wind;
-		private String timestamp;
 
 		public String getCity() {
 			return city;
@@ -36,22 +41,22 @@ public class Weather {
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public String getHumidity() {
+		public Double getHumidity() {
 			return humidity;
 		}
-		public void setHumidity(String humidity) {
+		public void setHumidity(Double humidity) {
 			this.humidity = humidity;
 		}
-		public String getPressure() {
+		public Double getPressure() {
 			return pressure;
 		}
-		public void setPressure(String pressure) {
+		public void setPressure(Double pressure) {
 			this.pressure = pressure;
 		}
-		public String getTemperature() {
+		public Double getTemperature() {
 			return temperature;
 		}
-		public void setTemperature(String temperature) {
+		public void setTemperature(Double temperature) {
 			this.temperature = temperature;
 		}
 		public Wind getWind() {
@@ -60,10 +65,10 @@ public class Weather {
 		public void setWind(Wind wind) {
 			this.wind = wind;
 		}
-		public String getTimestamp() {
+		public Timestamp getTimestamp() {
 			return timestamp;
 		}
-		public void setTimestamp(String timestamp) {
+		public void setTimestamp(Timestamp timestamp) {
 			this.timestamp = timestamp;
 		}
 		@Override

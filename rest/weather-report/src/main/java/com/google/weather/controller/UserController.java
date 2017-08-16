@@ -11,18 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.weather.constants.URI;
-import com.google.weather.entity.User;
 import com.google.weather.entity.Weather;
 import com.google.weather.service.UserService;
 
-//instead of component annotation which is generic spring uses
-//@Controller
-//We can add @ResponseBody at class level as well so, no need to add at each function
-//@ResponseBody
-//instead of using above two, spring have RestController which includes @Controller, @ResponseBody
 @RestController
-
-//We can add @RequestMapping for specific value at class level as well so, no need to add at each function
 @RequestMapping(value=URI.API+URI.WEATHER)
 public class UserController {
 	private UserService service;
@@ -48,29 +40,29 @@ public class UserController {
 //	public User findOne(@PathVariable("id") String userId){
 //		return service.findOne(userId);
 //	}
+//
+//	@ResponseBody
+//	//As it consumes JSON
+//	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	//We are using user object from RequestBody so use @RequestBody
+//	public User create(@RequestBody User user){
+//		return service.create(user);
+//	}
+//
+//	@ResponseBody
+//	@RequestMapping(value=URI.ID, method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	//We are using id from PathVariable  so use @PathVariable, using user from RequestBody so @RequestBody
+//	public User update(@PathVariable("id") String id, @RequestBody User user){
+//		return service.update(id, user);
+//	}
+//	
+//	@ResponseBody
+//	@RequestMapping(value=URI.ID, method=RequestMethod.DELETE, produces=MediaType.TEXT_PLAIN_VALUE)
+//	public void delete(@PathVariable("id") String id){
+//		service.delete(id);
+//	}
 
-	@ResponseBody
-	//As it consumes JSON
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	//We are using user object from RequestBody so use @RequestBody
-	public User create(@RequestBody User user){
-		return service.create(user);
-	}
-
-	@ResponseBody
-	@RequestMapping(value=URI.ID, method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	//We are using id from PathVariable  so use @PathVariable, using user from RequestBody so @RequestBody
-	public User update(@PathVariable("id") String id, @RequestBody User user){
-		return service.update(id, user);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value=URI.ID, method=RequestMethod.DELETE, produces=MediaType.TEXT_PLAIN_VALUE)
-	public void delete(@PathVariable("id") String id){
-		service.delete(id);
-	}
-
-	//////////////////////////
+///////////////////////////////////////////////////////	//////////////////////////
 	
 	@CrossOrigin
 	@ResponseBody
@@ -111,5 +103,11 @@ public class UserController {
 	@RequestMapping(value=URI.HOURID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Weather> findHourAverage(@PathVariable("id") String city){
 		return service.findHourAverage(city);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value=URI.DAYID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Weather> findDayAverage(@PathVariable("id") String city){
+		return service.findDayAverage(city);
 	}
 }

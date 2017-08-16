@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -13,9 +15,16 @@ import javax.persistence.OneToOne;
 @NamedQueries({
 	@NamedQuery(name ="Weather.findAllCities", query="SELECT DISTINCT w.city from Weather w"),
 	@NamedQuery(name ="Weather.findByTime", query="SELECT w from Weather w where w.city= :pCity order by w.timestamp DESC"),
-//	@NamedQuery(name ="Weather.findHourAverage", query="SELECT a.timestamp, AVG( humidity ) , AVG( pressure ), AVG( temperature ), "
-//	+ "AVG( speed ), AVG( degree )FROM weather a "
-//	+ "JOIN wind b ON a.timestamp = b.timestamp")
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name="Weather.findHourAverage", query=
+	"SELECT a.timestamp, city, AVG(humidity), AVG(pressure), AVG(temperature),"
+	+ "AVG(speed), AVG(degree) FROM weather a "
+	+ "JOIN wind b ON a.timestamp = b.timestamp where city = "+'?'+" group by HOUR(a.timestamp)"),
+	@NamedNativeQuery(name="Weather.findDayAverage", query=
+	"SELECT a.timestamp, city, AVG(humidity), AVG(pressure), AVG(temperature),"
+	+ "AVG(speed), AVG(degree) FROM weather a "
+	+ "JOIN wind b ON a.timestamp = b.timestamp where city = "+'?'+" group by DAY(a.timestamp)")
 })
 //Simple POJO class
 public class Weather {

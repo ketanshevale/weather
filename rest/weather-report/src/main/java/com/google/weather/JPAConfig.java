@@ -26,16 +26,12 @@ public class JPAConfig {
 	@Autowired
 	private Environment env;
 	
-	//Here we are creating a bean of entityManager
-	//I dont have access to LocalContainerEntityManagerFactoryBean this class
-	//so I cant go there and put @Component. Hence I am using a @Bean
 	@Bean
 	public LocalContainerEntityManagerFactoryBean lemf(){
 		//now set the properties which are equivalent to set in file persistence.xml
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		emf.setDataSource(getDataSource());
-//emf.setPackagesToScan("com.google.weather");
 		emf.setPackagesToScan("com.google.weather.entity");
 		emf.setJpaProperties(getJtaDataSource());
 		
@@ -54,10 +50,6 @@ public class JPAConfig {
 		ds.setUrl(env.getProperty("db.url"));
 		ds.setUsername(env.getProperty("db.user", "root"));
 		ds.setPassword(env.getProperty("db.password", "root"));
-		//defined in application.properties
-		//ds.setUrl("jdbc:mysql://localhost:3306/jpa-example");
-		//ds.setUsername("root");
-		//ds.setPassword("root");
 		return ds;
 	}
 	

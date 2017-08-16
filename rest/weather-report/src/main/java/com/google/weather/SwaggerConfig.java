@@ -18,7 +18,6 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api(){
 		return new Docket(DocumentationType.SWAGGER_2)
-				//I think Remove below /api line, it is creating a problem in aws deployment
 				//.pathMapping("/api/*")
 				.apiInfo(apiInfo());
 		

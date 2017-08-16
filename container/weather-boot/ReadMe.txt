@@ -1,6 +1,6 @@
-//Develop a REST endpoint that accepts the weather reading from the mock weather sensor [http://mocker.egen.io] and stores into your app datastore.
+////Develop a REST endpoint that accepts the weather reading from the mock weather sensor [http://mocker.egen.io] and stores into your app datastore.
 --------------------------------------------------------------------------------------------------
-//Develop another set of REST endpoints that can do the following:
+////Develop another set of REST endpoints that can do the following:
 //Get the list of cities that have ever reported their weather in the past.
 //Get the latest weather for a given city.
 //Get the latest weather property for a given city, e.g get the latest temperature for Chicago, get the latest humidity for Miami.

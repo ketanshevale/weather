@@ -59,4 +59,5 @@ public class UserServiceImpl implements UserService{
 		new NotFound("User with id "+ id + "does not found"));
 		repository.delete(found);		
 	}
+
 }

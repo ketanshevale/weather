@@ -7,6 +7,7 @@ import org.springframework.data.repository.Repository;
 
 import com.google.springrest.entity.User;
 
+
 public interface UserRepository extends Repository<User, String>{
 	public List<User> findAll();
 	public Optional<User> findOne(String userId);

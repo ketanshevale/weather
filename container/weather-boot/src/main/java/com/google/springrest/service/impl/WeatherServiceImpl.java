@@ -5,16 +5,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.google.springrest.entity.Weather;
-import com.google.springrest.repository.WeatherProperty;
+import com.google.springrest.exception.NotFound;
 import com.google.springrest.repository.WeatherRepository;
 import com.google.springrest.service.WeatherService;
-import com.google.springrest.exception.NotFound;
 
 @Service
 public class WeatherServiceImpl implements WeatherService{
@@ -29,7 +25,7 @@ public class WeatherServiceImpl implements WeatherService{
 	@Override
 	public Weather store(Weather weather) {
 		System.out.println(weather);
-		weather.getWind().setTimestamp(weather.getTimestamp());
+		weather.getWind().setId(weather.getId());
 		repository.save(weather.getWind());
 		return repository.save(weather);
 	}

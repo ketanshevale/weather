@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -20,16 +19,16 @@ public interface WeatherRepository extends Repository<Weather, Timestamp> {
 	public List<Weather> findAll();
 	public Optional<Weather> findFirstByCityOrderByTimestampDesc(String city);
 	public Optional<Weather> findFirstByCityOrderByTimestampDesc(String city, String property);
-
-	@Query(value = "SELECT a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
+	
+	@Query(value = "SELECT a.id, a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
 			+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, AVG(b.speed) as speed, AVG(b.degree) as degree,"
-			+ "b.timestamp as wind_timestamp FROM Weather a JOIN Wind b ON a.timestamp = b.timestamp "
+			+ "b.id as wind_id FROM Weather a JOIN Wind b ON a.id = b.id "
 			+ " where a.city = ?1 group by HOUR(a.timestamp)", nativeQuery=true)
 	public Optional<List<Weather>> findHourAverage(String city);
 
-	@Query(value = "SELECT a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
+	@Query(value = "SELECT a.id, a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
 			+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, AVG(b.speed) as speed, AVG(b.degree) as degree,"
-			+ "b.timestamp as wind_timestamp FROM Weather a JOIN Wind b ON a.timestamp = b.timestamp "
+			+ "b.id as wind_id FROM Weather a JOIN Wind b ON a.id = b.id "
 			+ " where a.city = ?1 group by DAY(a.timestamp)", nativeQuery=true)
 	public Optional<List<Weather>> findDayAverage(String city);
 }

@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 //by default exception is java feature and to show the proper exception at front end we need 
 @ResponseStatus(code=HttpStatus.NOT_FOUND)
 public class NotFound extends RuntimeException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public NotFound(String message) {
 		super(message);
 	}

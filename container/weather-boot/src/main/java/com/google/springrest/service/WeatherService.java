@@ -12,9 +12,9 @@ import com.google.springrest.repository.WeatherProperty;
 public interface WeatherService {
 	public Weather store(@RequestBody Weather weather);
 	
-	public List<String> findAllCities();
+	public List<Weather> findAllCities();
 	public Weather findOneCity(@PathVariable("id") String city);
 	public Map<String, Double> findOneCityProperty(@PathVariable("id") String city, @PathVariable("property") String property);
-//	public List<Weather> findHourAverage(@PathVariable("id") String city);
-//	public List<Weather> findDayAverage(@PathVariable("id") String city);
+	public List<Weather> findHourAverage(@PathVariable("id") String city);
+	public List<Weather> findDayAverage(@PathVariable("id") String city);
 }

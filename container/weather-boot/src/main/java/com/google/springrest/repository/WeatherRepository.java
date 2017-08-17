@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
@@ -11,21 +12,24 @@ import com.google.springrest.entity.Weather;
 import com.google.springrest.entity.Wind;
 
 
-public interface WeatherRepository extends Repository<Weather, Timestamp>{
-	
-//	public List<User> findAll();
-//	public Optional<User> findOne(String userId);
-//	public Optional<User> findByEmail(String email);
-//	public User save(User user);
-//	public void delete(User user);
-	
+public interface WeatherRepository extends Repository<Weather, Timestamp> {
+
 	public Weather save(Weather weather);
 	public Wind save(Wind wind);
 	@Query("select DISTINCT w.city from Weather w")
-	public List<String> findAll();
+	public List<Weather> findAll();
 	public Optional<Weather> findFirstByCityOrderByTimestampDesc(String city);
 	public Optional<Weather> findFirstByCityOrderByTimestampDesc(String city, String property);
-	
-//	public Optional<List<Weather>> findHourAverage(String city);
-//	public Optional<List<Weather>> findDayAverage(String city);
+
+	@Query(value = "SELECT a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
+			+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, AVG(b.speed) as speed, AVG(b.degree) as degree,"
+			+ "b.timestamp as wind_timestamp FROM Weather a JOIN Wind b ON a.timestamp = b.timestamp "
+			+ " where a.city = ?1 group by HOUR(a.timestamp)", nativeQuery=true)
+	public Optional<List<Weather>> findHourAverage(String city);
+
+	@Query(value = "SELECT a.timestamp, a.city, a.description, AVG(a.humidity) as humidity, "
+			+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, AVG(b.speed) as speed, AVG(b.degree) as degree,"
+			+ "b.timestamp as wind_timestamp FROM Weather a JOIN Wind b ON a.timestamp = b.timestamp "
+			+ " where a.city = ?1 group by DAY(a.timestamp)", nativeQuery=true)
+	public Optional<List<Weather>> findDayAverage(String city);
 }

@@ -39,7 +39,7 @@ public class WeatherController {
 	//This method should be called on get request, and produces json
 	//As Jackson is available in dependency it will produce JSON object directly
 	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<String> findAllCities(){
+	public List<Weather> findAllCities(){
 		return service.findAllCities();
 	}	
 
@@ -60,15 +60,15 @@ public class WeatherController {
 	}
 	
 	
-//	@ResponseBody
-//	@RequestMapping(value=URI.HOURID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public List<Weather> findHourAverage(@PathVariable("id") String city){
-//		return service.findHourAverage(city);
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping(value=URI.DAYID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public List<Weather> findDayAverage(@PathVariable("id") String city){
-//		return service.findDayAverage(city);
-//	}
+	@ResponseBody
+	@RequestMapping(value=URI.HOURID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Weather> findHourAverage(@PathVariable("id") String city){
+		return service.findHourAverage(city);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value=URI.DAYID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Weather> findDayAverage(@PathVariable("id") String city){
+		return service.findDayAverage(city);
+	}
 }

@@ -43,43 +43,43 @@ public class Weather {
 		@OneToOne
 		private Wind wind;
 
-		public String getcity() {
+		public String city() {
 			return city;
 		}
 		public void setCity(String city) {
 			this.city = city;
 		}
-		public String getdescription() {
+		public String description() {
 			return description;
 		}
 		public void setDescription(String description) {
 			this.description = description;
 		}
-		public Double gethumidity() {
+		public Double humidity() {
 			return humidity;
 		}
 		public void setHumidity(Double humidity) {
 			this.humidity = humidity;
 		}
-		public Double getpressure() {
+		public Double pressure() {
 			return pressure;
 		}
 		public void setPressure(Double pressure) {
 			this.pressure = pressure;
 		}
-		public Double gettemperature() {
+		public Double temperature() {
 			return temperature;
 		}
 		public void setTemperature(Double temperature) {
 			this.temperature = temperature;
 		}
-		public Wind getwind() {
+		public Wind wind() {
 			return wind;
 		}
 		public void setWind(Wind wind) {
 			this.wind = wind;
 		}
-		public Timestamp gettimestamp() {
+		public Timestamp timestamp() {
 			return timestamp;
 		}
 		public void setTimestamp(Timestamp timestamp) {
@@ -89,6 +89,28 @@ public class Weather {
 		public String toString() {
 			return "Weather [city=" + city + ", description=" + description + ", humidity=" + humidity + ", pressure="
 					+ pressure + ", temperature=" + temperature + ", wind=" + wind + ", timestamp=" + timestamp + "]";
+		}
+		public Timestamp getTimestamp() {
+			return timestamp;
+		}
+		public String getCity() {
+			return city;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public Double getHumidity() {
+			return humidity;
+		}
+		public Double getPressure() {
+			return pressure;
+		}
+		public Double getTemperature() {
+			return temperature;
+		}
+		public Wind getWind() {
+			return wind;
 		}	
+		
 		
 	}

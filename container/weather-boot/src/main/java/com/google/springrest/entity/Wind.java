@@ -14,19 +14,19 @@ public class Wind {
 		private Double degree;
 		
 		
-		public Timestamp gettimestamp() {
+		public Timestamp timestamp() {
 			return timestamp;
 		}
 		public void setTimestamp(Timestamp timestamp) {
 			this.timestamp = timestamp;
 		}
-		public Double getspeed() {
+		public Double speed() {
 			return speed;
 		}
 		public void setSpeed(Double speed) {
 			this.speed = speed;
 		}
-		public Double getDegree() {
+		public Double degree() {
 			return degree;
 		}
 		public void setDegree(Double degree) {
@@ -35,6 +35,15 @@ public class Wind {
 		@Override
 		public String toString() {
 			return "Wind [speed=" + speed + ", degree=" + degree + "]";
+		}
+		public Timestamp getTimestamp() {
+			return timestamp;
+		}
+		public Double getSpeed() {
+			return speed;
+		}
+		public Double getDegree() {
+			return degree;
 		}
 
 	}

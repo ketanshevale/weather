@@ -29,14 +29,14 @@ public class WeatherServiceImpl implements WeatherService{
 	@Override
 	public Weather store(Weather weather) {
 		System.out.println(weather);
-		weather.getwind().setTimestamp(weather.gettimestamp());
-		repository.save(weather.getwind());
+		weather.getWind().setTimestamp(weather.getTimestamp());
+		repository.save(weather.getWind());
 		return repository.save(weather);
 	}
 
 	@org.springframework.transaction.annotation.Transactional
 	@Override
-	public List<String> findAllCities(){
+	public List<Weather> findAllCities(){
 		return repository.findAll();
 	}
 
@@ -54,7 +54,7 @@ public class WeatherServiceImpl implements WeatherService{
 		Method method;
 		Map<String, Double> result = new HashMap<String, Double>();
 		try {
-			method = weather.getClass().getMethod("get"+property);
+			method = weather.getClass().getMethod(property);
 			result.put(property, (Double) method.invoke(weather));
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
@@ -74,16 +74,16 @@ public class WeatherServiceImpl implements WeatherService{
 			throw new NotFound("City with name "+ city + "does not found");
 	}
 
-	//	@Override
-	//	public List<Weather> findHourAverage(String city) {
-	//		return repository.findHourAverage(city).orElseThrow(() -> 
-	//		new NotFound("City with name "+ city + "does not found"));
-	//	}
-	//
-	//	@Override
-	//	public List<Weather> findDayAverage(String city) {
-	//		return repository.findDayAverage(city).orElseThrow(() -> 
-	//		new NotFound("City with name "+ city + "does not found"));
-	//	}
+		@Override
+		public List<Weather> findHourAverage(String city) {
+			return repository.findHourAverage(city).orElseThrow(() -> 
+			new NotFound("City with name "+ city + "does not found"));
+		}
+	
+		@Override
+		public List<Weather> findDayAverage(String city) {
+			return repository.findDayAverage(city).orElseThrow(() -> 
+			new NotFound("City with name "+ city + "does not found"));
+		}
 
 }

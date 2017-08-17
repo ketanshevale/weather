@@ -34,32 +34,32 @@ public class WeatherController {
 		return service.store(weather);
 	}
 	
-//	//whatever is returned write to the response body
-//	@ResponseBody
-//	//This method should be called on get request, and produces json
-//	//As Jackson is available in dependency it will produce JSON object directly
-//	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public List<String> findAllCities(){
-//		return service.findAllCities();
-//	}	
-//
-//	@ResponseBody
-//	//here we are using, template as anything come after employees will be parsed to id
-//	@RequestMapping(value=URI.ID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	//How to assign id to userId? use annotation PathVariable
-//	//for multiple variables, "/users/{id}/{city}" and (@PathVariable("id") String userId, @PathVariable("city") String city) 
-//	public Weather findOneCity(@PathVariable("id") String city){
-//		return service.findOneCity(city);
-//	}
-//	
-//	@ResponseBody
-//	//here we are using, template as anything come after employees will be parsed to id
-//	@RequestMapping(value=URI.IDPROPERTY, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public Map<String, String> findOneCityProperty(@PathVariable("id") String city, @PathVariable("property") String property){
-//		return service.findOneCityProperty(city, property);
-//	}
-//	
-//	
+	//whatever is returned write to the response body
+	@ResponseBody
+	//This method should be called on get request, and produces json
+	//As Jackson is available in dependency it will produce JSON object directly
+	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<String> findAllCities(){
+		return service.findAllCities();
+	}	
+
+	@ResponseBody
+	//here we are using, template as anything come after employees will be parsed to id
+	@RequestMapping(value=URI.ID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	//How to assign id to userId? use annotation PathVariable
+	//for multiple variables, "/users/{id}/{city}" and (@PathVariable("id") String userId, @PathVariable("city") String city) 
+	public Weather findOneCity(@PathVariable("id") String city){
+		return service.findOneCity(city);
+	}
+	
+	@ResponseBody
+	//here we are using, template as anything come after employees will be parsed to id
+	@RequestMapping(value=URI.IDPROPERTY, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Map<String, Double> findOneCityProperty(@PathVariable("id") String city, @PathVariable("property") String property){
+		return service.findOneCityProperty(city, property);
+	}
+	
+	
 //	@ResponseBody
 //	@RequestMapping(value=URI.HOURID, method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 //	public List<Weather> findHourAverage(@PathVariable("id") String city){

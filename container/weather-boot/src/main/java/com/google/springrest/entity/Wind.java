@@ -14,13 +14,13 @@ public class Wind {
 		private Double degree;
 		
 		
-		public Timestamp getTimestamp() {
+		public Timestamp gettimestamp() {
 			return timestamp;
 		}
 		public void setTimestamp(Timestamp timestamp) {
 			this.timestamp = timestamp;
 		}
-		public Double getSpeed() {
+		public Double getspeed() {
 			return speed;
 		}
 		public void setSpeed(Double speed) {

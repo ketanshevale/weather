@@ -1,6 +1,8 @@
 package com.google.weather.repository.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -11,59 +13,21 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.google.weather.entity.Weather;
-import com.google.weather.repository.UserRepository;
+import com.google.weather.repository.WeatherRepository;
 
 //we created these database lower level connectivity in separate class 
 //because we can easily change it with other technologies
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class WeatherRepositoryImpl implements WeatherRepository {
 
 	@PersistenceContext
-	private EntityManager em;
-	
-//	@Override
-//	public List<User> findAll() {
-//		TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
-//		return query.getResultList();
-//	}
-//
-//	@Override
-//	public Optional<User> findOne(String id) {
-//		return Optional.ofNullable(em.find(User.class, id));
-//	}
-//	
-//	@Override
-//	public Optional<User> findByEmail(String email) {
-//		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
-//		query.setParameter("pEmail", email);
-//		List<User> users = query.getResultList();
-//		if(!users.isEmpty())
-//			return Optional.of(users.get(0));
-//		else
-//			return Optional.empty();
-//	}
-//	
-//	@Override
-//	public User create(User user) {
-//		em.persist(user);
-//		return user;
-//	}
-//
-//	@Override
-//	public User update(User user) {
-//		return em.merge(user);
-//	}
-//
-//	@Override
-//	public void delete(User user) {
-//		em.remove(user);
-//	}
+	private EntityManager em;	
 
 	@Override
 	public Weather store(Weather weather) {
 		System.out.println(weather);
-		weather.getWind().setTimestamp(weather.getTimestamp());
+		weather.getWind().setId(weather.getId());
 		em.persist(weather.getWind());
 		em.persist(weather);
 		return weather;	
@@ -87,12 +51,15 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Optional<String> findOneCityProperty(String city, String property) {
-		//Or we can use projection as well
+	public Optional<Map<String, String>> findOneCityProperty(String city, String property) {
+		Map<String, String> map = new HashMap<>();
 		Query query = em.createNativeQuery("SELECT "+ property + " from Weather where city = '" + city + "' order by timestamp DESC");
-		String weather = query.getResultList().get(0).toString();				
-		if(weather != null)
-			return Optional.of(weather);
+		String weather = query.getResultList().get(0).toString();
+
+		if(weather != null){
+			map.put(property, weather);
+			return Optional.of(map);
+		}
 		else
 			return Optional.empty();
 	}
@@ -108,10 +75,11 @@ public class UserRepositoryImpl implements UserRepository {
 			return Optional.of(weather);
 		else
 			return Optional.empty();
+		
 	}
 
 	@Override
-	public Optional<List<Weather>> findDayAverage(String city) {
+	public Optional<List<Weather>> findDayAverage(String city) {		
 		Query query = em.createNamedQuery("Weather.findDayAverage");
 		query.setParameter(1, city);
 		@SuppressWarnings("unchecked")
@@ -121,5 +89,6 @@ public class UserRepositoryImpl implements UserRepository {
 			return Optional.of(weather);
 		else
 			return Optional.empty();
+		
 	}
 }

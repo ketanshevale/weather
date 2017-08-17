@@ -1,6 +1,7 @@
 package com.google.weather.entity;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,17 +19,22 @@ import javax.persistence.OneToOne;
 })
 @NamedNativeQueries({
 	@NamedNativeQuery(name="Weather.findHourAverage", query=
-	"SELECT a.timestamp, city, AVG(humidity), AVG(pressure), AVG(temperature),"
-	+ "AVG(speed), AVG(degree) FROM weather a "
-	+ "JOIN wind b ON a.timestamp = b.timestamp where city = "+'?'+" group by HOUR(a.timestamp)"),
+	"SELECT a.city, AVG(a.humidity) as humidity, "
+	+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, "
+	+ "AVG(b.speed) as speed, AVG(b.degree) as degree FROM weather a "
+	+ "JOIN wind b ON a.id = b.id where city = "+'?'+" group by HOUR(a.timestamp)"),
 	@NamedNativeQuery(name="Weather.findDayAverage", query=
-	"SELECT a.timestamp, city, AVG(humidity), AVG(pressure), AVG(temperature),"
-	+ "AVG(speed), AVG(degree) FROM weather a "
-	+ "JOIN wind b ON a.timestamp = b.timestamp where city = "+'?'+" group by DAY(a.timestamp)")
+	"SELECT a.city, AVG(a.humidity) as humidity, "
+	+ "AVG(a.pressure) as pressure, AVG(a.temperature) as temperature, "
+	+ "AVG(b.speed) as speed, AVG(b.degree) as degree FROM weather a "
+	+ "JOIN wind b ON a.id = b.id where city = "+'?'+" group by DAY(a.timestamp)")
 })
+
+
 //Simple POJO class
 public class Weather {
 		@Id
+		private String id;
 		private Timestamp timestamp;
 		private String city;
 		private String description;
@@ -38,6 +44,10 @@ public class Weather {
 		@OneToOne
 		private Wind wind;
 
+		public Weather() {
+			this.id = UUID.randomUUID().toString();
+		}
+		
 		public String getCity() {
 			return city;
 		}
@@ -80,9 +90,21 @@ public class Weather {
 		public void setTimestamp(Timestamp timestamp) {
 			this.timestamp = timestamp;
 		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
 		@Override
 		public String toString() {
-			return "Weather [city=" + city + ", description=" + description + ", humidity=" + humidity + ", pressure="
-					+ pressure + ", temperature=" + temperature + ", wind=" + wind + ", timestamp=" + timestamp + "]";
-		}			
+			return "Weather [id=" + id + ", timestamp=" + timestamp + ", city=" + city + ", description=" + description
+					+ ", humidity=" + humidity + ", pressure=" + pressure + ", temperature=" + temperature + ", wind="
+					+ wind + "]";
+		}
+		
+		
 	}

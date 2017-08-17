@@ -56,7 +56,7 @@ public class JPAConfig {
 	public Properties getJtaDataSource(){
 		Properties prop = new Properties();
 		prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-		prop.setProperty("hibernate.hbm2ddl.auto", "create");
+		prop.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		prop.setProperty("hibernate.show_sql", "true");
 		prop.setProperty("hibernate.format_sql", "true");
 		return prop;

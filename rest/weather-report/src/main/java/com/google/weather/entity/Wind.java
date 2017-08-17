@@ -1,7 +1,5 @@
 package com.google.weather.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,17 +7,11 @@ import javax.persistence.Id;
 //Simple POJO class
 public class Wind {
 		@Id
-		private Timestamp timestamp;
+		private String id;
 		private Double speed;
 		private Double degree;
 		
-		
-		public Timestamp getTimestamp() {
-			return timestamp;
-		}
-		public void setTimestamp(Timestamp timestamp) {
-			this.timestamp = timestamp;
-		}
+
 		public Double getSpeed() {
 			return speed;
 		}
@@ -32,9 +24,19 @@ public class Wind {
 		public void setDegree(Double degree) {
 			this.degree = degree;
 		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
 		@Override
 		public String toString() {
-			return "Wind [speed=" + speed + ", degree=" + degree + "]";
+			return "Wind [id=" + id + ", speed=" + speed + ", degree=" + degree + "]";
 		}
+
+
 
 	}
